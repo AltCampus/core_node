@@ -1,49 +1,50 @@
-1. Explain Node and V8 in your own words ? 
-// Answer here...
+## Globals
+Globals are packages or modules which are inherently availbale in our application without requiring or downloading it, like window or document which are availbale in browser based applications. Globals in nodeJS app differ from browser based globals.
 
-2. Explain steps in REPL(here) and command to start REPL ?
-// Answer here...
+Few globals in nodeJS are: 
+1. require
+2. process
+3. modules
+4. __dirname
+5. __filename
 
-3. Run `index.js` in the same directory as script writer using `node FILE_NAME.js` and output result of console here.
+### Require
+Require is used to fetch external dependencies or core node modules or certain external file which is used in certain other files. There are 3 kinds of modules or files which can be fetched using require.
 
-4. Require fs module and read `theory.md` using fs.readFile method in index.js file.
-
-5. Explain Buffer and different methods to create a buffer ?
-
-6. What is blocking code ? How is it different from non-blocking/async codes ? Correct blocking code in index.js to run asynchronously ?
-// Answer here ...
-
-7. Request from browser `https://altcampus.io` and copy request, response and general headers into answer.js.
-
-8. Parse the URL `http://localhost:3000/api/v3?token=8372fcb8y2874b2t478t6t48cbtbc72t4` using `url` module's parse method and write output in answer.js
-
-9. parse the query object as well from above url using `url.parse(url, true)` and output result in answer.js
-
-10. create a file `math.js`
-  1. Export variables and functions
-    - define a const pie = 3.14
-    - define functions to add and multiply 2 numbers
-    - export it from math.js
-    - require in index.js and console the output by executing it there.
+#### 1. Core Node Modules
+These modules are available in the projects, you simply have to require them in order to use them in your project. Like Filesystem aka fs module is inhereted in every node project. In order to use them: 
 ```js
-// math.js
-const pie = 3.14;
-function sum() {}
-function multiply() {}
-// export it from math.js
+var fs = require('fs');
 ```
 
-  2. Define above const and functions as properties and methods on module.exports object.
-    - require in index.js and execute it.
-
+#### 2. NPM Modules 
+Any module installed using needs to be required in order to use them.
 ```js
-  module.exports = {
-    pie: 3.14,
-    add: () => {}
-  }
+var express = require('express');
 ```
-  3. Define above using exports 
+
+#### 3. External Files
+In order to use functions or methods defined somewhere else in other file we need to require them first. For example say we have certain math functions like add, multiply defined in math.js, in order to use those functions we need to require them first. We provide relative path for that file in require.
+```js
+var math = require('./math') || require('./math.js');
+
+math.add(2, 3)
+```
+
+### Process
+Process has information about the environment the program is running in. It has several additional methods and declarations. You can access the varibales passed during start of your application using process, like process.env or process.argv.
+```js
+// While starting node application
+>> PORT=5000 node index.js
+
+//Inside index.js
+process.env.PORT // will provide 5000
+```
+
+### __dirname__
+It provides absolute path of the directory in which it gets called.
+Similarily __filename__ provides absolute path of that file.
 
 ```js
-exports.sum = () => {}
+console.log(__dirname) // 'home/ravi/Desktop/curriculum/core_node/node_concepts'
 ```
